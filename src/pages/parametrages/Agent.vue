@@ -40,7 +40,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                  <tr class="odd gradeX" v-for="(agent, index) in agents"
+                  <tr class="odd gradeX" v-for="(agent, index) in agentFiltre"
                   :key="agent.id">
 
                     <td >
@@ -55,17 +55,17 @@
                   <td @dblclick="afficherModalModifierAgent(index)">
                     {{agent.nom || 'Non renseigné'}}</td>
                     <td @dblclick="afficherModalModifierAgent(index)">
-                      {{agent.Prenom || 'Non renseigné'}}</td>
+                      {{agent.prenom || 'Non renseigné'}}</td>
 
                       <td @dblclick="afficherModalModifierAgent(index)">
-                        {{agent.date_naissance || 'Non renseigné'}}</td>
+                        {{formaterDate(agent.date_naissance) || 'Non renseigné'}}</td>
                         <td @dblclick="afficherModalModifierAgent(index)">
                           {{agent.genrs || 'Non renseigné'}}</td>
                   
                                <td>
               <div class="btn-group">
               <button @click.prevent="supprimerAgent(agent.id)"  class="btn btn-danger ">
-                <span class=""><i class="icon-trash"></i></span></button>
+               <i class="far fa-trash-alt"></i></button>
              
             </div>
 
@@ -202,6 +202,7 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
+import moment from 'moment';
 export default {
 
   data(){
@@ -242,6 +243,18 @@ export default {
   },
 
   computed:{
+
+// methode pour trier item
+
+agentFiltre(){
+
+  const ste = this.search.toLowerCase();
+  return this.agents.filter((item)=>{
+    return item.nom.toLowerCase().includes(ste) ||
+            item.prenom.toLowerCase().includes(ste)
+  })
+},
+    
     ...mapGetters('parametres',['agents'])
 
   },
@@ -284,8 +297,16 @@ export default {
     modificationModalLocal(){
   this.modifierAgent(this.editAgent)
   this.$('#modifierModal').modal('hide');
-    }
+    },
+      // formatage date
+
+    formaterDate(date) {
+      return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
+    },
   }
+
+
+  
   
     
 }
