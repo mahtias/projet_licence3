@@ -1,7 +1,10 @@
 const defaultstate ={
 
     agents :[],
-    comptes:[],
+    grades:[],
+    gettersFonction:[],
+    gettersPersonnels:[]
+
     
 
 }

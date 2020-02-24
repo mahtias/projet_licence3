@@ -2,13 +2,15 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from '../vuex/store'
 
-import AgentRoutes from "./parametres/AgentRoutes"
+import parametreRoutes from "./parametres/parametreRoutes"
+import personnelsRoutes from "./gestion_personnel/personnelsRoutes"
 
 Vue.use(VueRouter);
 
 
 const regroupementDesRoutes = [
-  AgentRoutes
+  parametreRoutes,
+  personnelsRoutes
  
 
 ];
@@ -31,10 +33,10 @@ router.beforeEach((to, from, next) => {
    }
  
    // if logged in redirect to dashboard
-   if(to.path === '/' && store.state.Utilisateurs.isLoggedIn) {
-     // next({ name: 'ExerciceBudgetaire' })
-       return
-   }
+  //  if(to.path === '/' && store.state.Utilisateurs.isLoggedIn) {
+  //     next({ name: 'ExerciceBudgetaire' })
+  //      return
+  //  }
  
    next()
  })
